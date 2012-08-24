@@ -1,0 +1,15 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "model:res.group,name:group_sale_waiting"
+msgid "Sales Waiting"
+msgstr "Comandes en espera"
+
+msgctxt "selection:sale.sale,state:"
+msgid "Waiting"
+msgstr "En espera"
+
+msgctxt "view:sale.sale:"
+msgid "Approve Sale"
+msgstr "Confirmar comanda"

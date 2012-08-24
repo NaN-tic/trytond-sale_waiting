@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!-- This file is part sale_waiting module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="res.group" id="group_sale_waiting">
+            <field name="name">Sales Waiting</field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_view_form">
+            <field name="model">sale.sale</field>
+            <field name="inherit" ref="sale.sale_view_form"/>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <data>
+                    <xpath
+                        expr="/form/notebook/page[@id=&quot;sale&quot;]/group[@id=&quot;amount_buttons&quot;]/group[@id=&quot;buttons&quot;]/button[@name=&quot;draft&quot;]"
+                        position="after">
+                        <button name="set_waiting" type="object" string="Approve Sale"
+                            icon="tryton-go-next"/>
+                    </xpath>
+                </data>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.model.button" id="sale_set_waiting_button">
+            <field name="name">set_waiting</field>
+            <field name="model" search="[('model', '=', 'sale.sale')]"/>
+        </record>
+        <record model="ir.model.button-res.group" id="sale_set_waiting_button_group_sale_waiting">
+            <field name="button" ref="sale_set_waiting_button"/>
+            <field name="group" ref="group_sale_waiting"/>
+        </record>
+    </data>
+</tryton>
