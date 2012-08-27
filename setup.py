@@ -20,20 +20,20 @@ for dep in info.get('depends', []):
 requires.append('trytond >= %s.%s, < %s.%s' %
         (major_version, minor_version, major_version, minor_version + 1))
 
-setup(name='trytond_waiting',
+setup(name='trytond_sale_waiting',
     version=info.get('version', '0.0.1'),
     description=info.get('description', ''),
     author=info.get('author', 'Zikzakmedia'),
     author_email=info.get('email', 'zikzak@zikzakmedia.com'),
     url=info.get('website', 'http://www.zikzakmedia.com'),
-    download_url="https://bitbucket.org/zikzakmedia/trytond-waiting",
-    package_dir={'trytond.modules.waiting': '.'},
+    download_url="https://bitbucket.org/zikzakmedia/trytond-sale_waiting",
+    package_dir={'trytond.modules.sale_waiting': '.'},
     packages=[
-        'trytond.modules.waiting',
-        'trytond.modules.waiting.tests',
+        'trytond.modules.sale_waiting',
+        'trytond.modules.sale_waiting.tests',
     ],
     package_data={
-        'trytond.modules.waiting': info.get('xml', []) \
+        'trytond.modules.sale_waiting': info.get('xml', []) \
                 + info.get('translation', []),
     },
     classifiers=[
@@ -57,7 +57,7 @@ setup(name='trytond_waiting',
     zip_safe=False,
     entry_points="""
     [trytond.modules]
-    waiting = trytond.modules.waiting
+    sale_waiting = trytond.modules.sale_waiting
     """,
     test_suite='tests',
     test_loader='trytond.test_loader:Loader',
