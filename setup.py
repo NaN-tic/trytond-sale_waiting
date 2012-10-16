@@ -22,10 +22,10 @@ requires.append('trytond >= %s.%s, < %s.%s' %
 
 setup(name='trytond_sale_waiting',
     version=info.get('version', '0.0.1'),
-    description=info.get('description', ''),
-    author=info.get('author', 'Zikzakmedia'),
-    author_email=info.get('email', 'zikzak@zikzakmedia.com'),
-    url=info.get('website', 'http://www.zikzakmedia.com'),
+    description='Tryton module to add new state in sales: wainting',
+    author='Zikzakmedia SL',
+    author_email='zikzak@zikzakmedia.com',
+    url='http://www.zikzakmedia.com',
     download_url="https://bitbucket.org/zikzakmedia/trytond-sale_waiting",
     package_dir={'trytond.modules.sale_waiting': '.'},
     packages=[
@@ -34,7 +34,7 @@ setup(name='trytond_sale_waiting',
     ],
     package_data={
         'trytond.modules.sale_waiting': info.get('xml', []) \
-                + info.get('translation', []),
+            + ['tryton.cfg', 'locale/*.po'],
     },
     classifiers=[
         'Development Status :: 5 - Production/Stable',

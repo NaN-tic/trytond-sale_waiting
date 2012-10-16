@@ -2,13 +2,16 @@
 #The COPYRIGHT file at the top level of this repository contains 
 #the full copyright notices and license terms.
 
-from trytond.model import Workflow, ModelView, ModelSQL, fields
-from trytond.pyson import Eval
-from trytond.transaction import Transaction
-from trytond.pool import Pool
+from trytond.model import Workflow, ModelView, fields
+from trytond.pyson import If, Eval
+from trytond.pool import PoolMeta
 
-class Sale(Workflow, ModelSQL, ModelView):
-    _name = 'sale.sale'
+__all__ = ['Sale']
+__metaclass__ = PoolMeta
+
+class Sale:
+    'Sale'
+    __name__ = 'sale.sale'
 
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -18,11 +21,18 @@ class Sale(Workflow, ModelSQL, ModelView):
         ('done', 'Done'),
         ('cancel', 'Canceled'),
         ('waiting', 'Waiting'),
-    ], 'State', readonly=True, required=True)
+    ], 'State', required=True, readonly=True)
+    sale_date = fields.Date('Sale Date',
+        states={
+            'readonly': ~Eval('state').in_(['draft', 'quotation']),
+            'required': ~Eval('state').in_(['draft', 'quotation', 'cancel','waiting']),
+            },
+        depends=['state'])
 
-    def __init__(self):
-        super(Sale, self).__init__()
-        self._transitions |= set((
+    @classmethod
+    def __setup__(cls):
+        super(Sale, cls).__setup__()
+        cls._transitions |= set((
                 ('draft', 'quotation'),
                 ('quotation', 'confirmed'),
                 ('confirmed', 'processing'),
@@ -34,29 +44,27 @@ class Sale(Workflow, ModelSQL, ModelView):
                 ('waiting', 'draft'),
                 ('waiting', 'quotation'),
                 ))
-        self._buttons.update({
+        cls._buttons.update({
                 'draft': {
-                    'invisible': ~Eval('state').in_(['quotation', 'waiting']),
+                    'invisible': ~Eval('state').in_(['cancel', 'quotation', 'waiting']),
+                    'icon': If(Eval('state') == 'cancel', 'tryton-clear',
+                        'tryton-go-previous'),
                     },
                 'set_waiting': {
                     'invisible': Eval('state') != 'waiting',
                     },
                 })
 
+    @classmethod
     @ModelView.button
     @Workflow.transition('waiting')
-    def waiting(self, ids):
-        self.set_sale_date(ids)
+    def waiting(cls, sales):
         pass
 
-    @ModelView.button
-    def set_waiting(self, ids):
-        quotes = []
-        for sale in self.browse(ids):
+    @classmethod
+    def set_waiting(cls, sales):
+        for sale in sales:
             if sale.state == 'waiting':
-                quotes.append(sale.id)
-        self.write(quotes, {
+                cls.write([sale], {
                 'state': 'quotation',
                 })
-
-Sale()
