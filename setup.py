@@ -26,20 +26,20 @@ for dep in info.get('depends', []):
 requires.append('trytond >= %s.%s, < %s.%s' %
         (major_version, minor_version, major_version, minor_version + 1))
 
-setup(name='trytond_sale_waiting',
+setup(name='trytonzz_sale_waiting',
     version=info.get('version', '0.0.1'),
     description='Tryton module to add new state in sales: wainting',
     author='Zikzakmedia SL',
     author_email='zikzak@zikzakmedia.com',
     url='http://www.zikzakmedia.com',
-    download_url="https://bitbucket.org/zikzakmedia/trytond-sale_waiting",
-    package_dir={'trytond.modules.sale_waiting': '.'},
+    download_url="https://bitbucket.org/zikzakmedia/trytonzz-sale_waiting",
+    package_dir={'trytonzz.modules.sale_waiting': '.'},
     packages=[
-        'trytond.modules.sale_waiting',
-        'trytond.modules.sale_waiting.tests',
+        'trytonzz.modules.sale_waiting',
+        'trytonzz.modules.sale_waiting.tests',
     ],
     package_data={
-        'trytond.modules.sale_waiting': info.get('xml', []) \
+        'trytonzz.modules.sale_waiting': info.get('xml', []) \
             + ['tryton.cfg', 'locale/*.po'],
     },
     classifiers=[
@@ -62,9 +62,9 @@ setup(name='trytond_sale_waiting',
     install_requires=requires,
     zip_safe=False,
     entry_points="""
-    [trytond.modules]
-    sale_waiting = trytond.modules.sale_waiting
+    [trytonzz.modules]
+    sale_waiting = trytonzz.modules.sale_waiting
     """,
     test_suite='tests',
-    test_loader='trytond.test_loader:Loader',
+    test_loader='trytonzz.test_loader:Loader',
 )
