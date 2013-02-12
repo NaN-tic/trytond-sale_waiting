@@ -12,16 +12,6 @@ __metaclass__ = PoolMeta
 class Sale:
     'Sale'
     __name__ = 'sale.sale'
-
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('quotation', 'Quotation'),
-        ('confirmed', 'Confirmed'),
-        ('processing', 'Processing'),
-        ('done', 'Done'),
-        ('cancel', 'Canceled'),
-        ('waiting', 'Waiting'),
-    ], 'State', required=True, readonly=True)
     sale_date = fields.Date('Sale Date',
         states={
             'readonly': ~Eval('state').in_(['draft', 'quotation']),
@@ -32,6 +22,9 @@ class Sale:
     @classmethod
     def __setup__(cls):
         super(Sale, cls).__setup__()
+        selection = ('waiting', 'Waiting')
+        if selection not in cls.state.selection:
+            cls.state.selection.append(selection)
         cls._transitions |= set((
                 ('draft', 'quotation'),
                 ('quotation', 'confirmed'),
