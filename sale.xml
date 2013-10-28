@@ -14,17 +14,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
         <record model="ir.ui.view" id="sale_view_form">
             <field name="model">sale.sale</field>
             <field name="inherit" ref="sale.sale_view_form"/>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <data>
-                    <xpath
-                        expr="/form/notebook/page[@id=&quot;sale&quot;]/group[@id=&quot;amount_buttons&quot;]/group[@id=&quot;buttons&quot;]/button[@name=&quot;draft&quot;]"
-                        position="after">
-                        <button name="set_waiting" string="Approve Sale" icon="tryton-go-next"/>
-                    </xpath>
-                </data>
-                ]]>
-            </field>
+            <field name="name">sale_form</field>
         </record>
 
         <record model="ir.action.act_window.domain" id="act_sale_form_domain_waiting">

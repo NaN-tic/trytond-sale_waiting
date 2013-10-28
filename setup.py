@@ -40,7 +40,7 @@ setup(name='trytonzz_sale_waiting',
     ],
     package_data={
         'trytond.modules.sale_waiting': info.get('xml', []) \
-            + ['tryton.cfg', 'locale/*.po'],
+            + ['tryton.cfg',  'view/*.xml', 'locale/*.po'],
     },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
