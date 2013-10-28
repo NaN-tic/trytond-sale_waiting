@@ -27,6 +27,13 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             </field>
         </record>
 
+        <record model="ir.action.act_window.domain" id="act_sale_form_domain_waiting">
+            <field name="name">Waiting</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'waiting')]</field>
+            <field name="act_window" ref="sale.act_sale_form"/>
+        </record>
+
         <record model="ir.model.button" id="sale_set_waiting_button">
             <field name="name">set_waiting</field>
             <field name="model" search="[('model', '=', 'sale.sale')]"/>
