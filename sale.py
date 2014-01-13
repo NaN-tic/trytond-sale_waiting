@@ -26,13 +26,6 @@ class Sale:
         if selection not in cls.state.selection:
             cls.state.selection.append(selection)
         cls._transitions |= set((
-                ('draft', 'quotation'),
-                ('quotation', 'confirmed'),
-                ('confirmed', 'processing'),
-                ('processing', 'processing'),
-                ('draft', 'cancel'),
-                ('quotation', 'cancel'),
-                ('quotation', 'draft'),
                 ('draft', 'waiting'),
                 ('waiting', 'draft'),
                 ('waiting', 'quotation'),
