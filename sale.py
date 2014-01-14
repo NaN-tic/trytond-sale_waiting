@@ -36,21 +36,18 @@ class Sale:
                     'icon': If(Eval('state') == 'cancel', 'tryton-clear',
                         'tryton-go-previous'),
                     },
-                'set_waiting': {
+                'to_quotation': {
                     'invisible': Eval('state') != 'waiting',
                     },
                 })
 
     @classmethod
-    @ModelView.button
     @Workflow.transition('waiting')
     def waiting(cls, sales):
         pass
 
     @classmethod
-    def set_waiting(cls, sales):
-        for sale in sales:
-            if sale.state == 'waiting':
-                cls.write([sale], {
-                'state': 'quotation',
-                })
+    @ModelView.button
+    @Workflow.transition('quotation')
+    def to_quotation(cls, sales):
+        pass
