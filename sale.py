@@ -1,6 +1,7 @@
-#This file is part sale_waiting module for Tryton.
-#The COPYRIGHT file at the top level of this repository contains 
-#the full copyright notices and license terms.
+#!/usr/bin/env python
+# This file is part sale_waiting module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
 
 from trytond.model import Workflow, ModelView, fields
 from trytond.pyson import If, Eval
@@ -9,13 +10,15 @@ from trytond.pool import PoolMeta
 __all__ = ['Sale']
 __metaclass__ = PoolMeta
 
+
 class Sale:
     'Sale'
     __name__ = 'sale.sale'
     sale_date = fields.Date('Sale Date',
         states={
             'readonly': ~Eval('state').in_(['draft', 'quotation']),
-            'required': ~Eval('state').in_(['draft', 'quotation', 'cancel','waiting']),
+            'required': ~Eval('state').in_(
+                ['draft', 'quotation', 'cancel', 'waiting']),
             },
         depends=['state'])
 
@@ -32,7 +35,8 @@ class Sale:
                 ))
         cls._buttons.update({
                 'draft': {
-                    'invisible': ~Eval('state').in_(['cancel', 'quotation', 'waiting']),
+                    'invisible': ~Eval('state').in_(
+                        ['cancel', 'quotation', 'waiting']),
                     'icon': If(Eval('state') == 'cancel', 'tryton-clear',
                         'tryton-go-previous'),
                     },
