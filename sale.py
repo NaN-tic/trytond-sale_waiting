@@ -8,11 +8,10 @@ from trytond.pyson import If, Eval
 from trytond.pool import PoolMeta
 
 __all__ = ['Sale']
-__metaclass__ = PoolMeta
 
 
 class Sale:
-    'Sale'
+    __metaclass__ = PoolMeta
     __name__ = 'sale.sale'
     sale_date = fields.Date('Sale Date',
         states={
